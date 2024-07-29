@@ -20,6 +20,15 @@ module "vpc" {
   azs             = var.availabilty-zones
   private_subnets = var.private_subnets
   public_subnets  = var.public_subnets
+  create_igw      = true
+  
+  public_subnet_tags = {
+    Name = "public-subnet"
+  }
+
+  private_subnet_tags = {
+    Name = "private-subnet"
+  }
 
   tags = {
     Name      = var.vpc-name

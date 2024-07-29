@@ -1,0 +1,16 @@
+name: Ngnix deployment
+on: 
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: write
+
+jobs:
+    test:
+        runs-on: ubunntu-latest
+        steps:
+            - name: print hello world
+              run: echo "Hello world"
+    

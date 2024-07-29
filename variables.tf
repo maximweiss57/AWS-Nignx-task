@@ -31,12 +31,12 @@ variable "cidr-block" {
 
 variable "bastion-ami" {
   description = "The AMI to use for the bastion instance."
-  default     = "ami-071878317c449ae48"
+  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
 }
 
 variable "custom-ami" {
   description = "The AMI to use for the custom instance."
-  default     = "ami-0c55b159cbfafe1f0" #amazon linux 2 in eu-central-1
+  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
 
 }
 variable "bastion-instance-name" {
