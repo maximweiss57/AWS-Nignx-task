@@ -52,3 +52,6 @@ How this works:
 - The workflow files will run the Terraform commands to create the infrastructure.
   - The Terraform state file will be stored in the S3 bucket.
 - To destroy the infrastructure, run the destroy workflow from the Actions tab.
+
+
+![yo-nginx](https://github.com/user-attachments/assets/68e2c4d4-c092-453e-bc47-7ac599380575)
