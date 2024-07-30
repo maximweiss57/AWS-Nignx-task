@@ -1,3 +1,7 @@
+# This Terraform file defines two AWS EC2 instances: a bastion instance and an nginx instance.
+# The bastion instance is used as a jump host to access the private subnet where the nginx instance is located.
+# The nginx instance runs an NGINX web server inside a Docker container.
+
 locals {
   nginx-private-ip = aws_instance.nginx.private_ip
 }
@@ -73,4 +77,3 @@ resource "aws_instance" "nginx" {
     Terraform = "true"
   }
 }
-

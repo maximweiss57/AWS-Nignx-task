@@ -4,7 +4,7 @@ Terraform installed on your machine.
 configured the AWS CLI with the needed credentials.
 
 This repo contains:
-- A Dockerfile to build a Docker image based on the official Nginx image, with a custom index.html file that returnes "yo this is nignx".
+- A dockerfile to build a Docker image based on the official Nginx image, with a custom index.html file that returnes "yo this is nignx".
 note: the dockerfile is only for demonstration purposes, when terraform runs, it will build the image and run the container on the main instance using "user data" script.
 
 - Few terraform files to deploy the Docker container on AWS.
@@ -40,4 +40,5 @@ Github actions:
 pre-requisites:
 - AWS IAM user with the needed permissions.
 - configured the github secrets with the AWS IAM user credentials.
+- S3 bucket to store the terraform state file.
 - workflow files to automate the deployment process.

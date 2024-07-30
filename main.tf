@@ -1,4 +1,19 @@
+# terraform {
+#   required_providers {
+#     aws = {
+#       source  = "hashicorp/aws"
+#       version = ">= 5.30.0"
+#     }
+#   }
+# }
+
 terraform {
+  backend "s3" {
+    bucket = var.s3-bucket-name
+    key    = "terraform-state"
+    region = var.aws-region
+    
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"

@@ -4,6 +4,33 @@ variable "aws-region" {
   default     = "eu-central-1" # Frankfurt
 }
 
+variable "bastion-ami" {
+  description = "The AMI to use for the bastion instance."
+  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
+}
+
+variable "custom-ami" {
+  description = "The AMI to use for the custom instance."
+  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
+
+}
+variable "bastion-instance-name" {
+  description = "name for the bastion instance"
+  default     = "bastion"
+}
+
+variable "nginx-instance-name" {
+  description = "name for the custom instance"
+  default     = "nginx"
+}
+
+variable "s3-bucket-name" {
+  description = "The name of the S3 bucket."
+  default     = "my-s3-bucket"
+}
+
+#---------------------------------------------------
+#Variables for the VPC module
 variable "vpc-name" {
   description = "The name of the VPC."
   default     = "my-vpc"
@@ -28,23 +55,4 @@ variable "cidr-block" {
   description = "The CIDR block for the VPC."
   default     = "10.0.0.0/16"
 }
-
-variable "bastion-ami" {
-  description = "The AMI to use for the bastion instance."
-  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
-}
-
-variable "custom-ami" {
-  description = "The AMI to use for the custom instance."
-  default     = "ami-071878317c449ae48" #amazon linux 2 in eu-central-1
-
-}
-variable "bastion-instance-name" {
-  description = "name for the bastion instance"
-  default     = "bastion"
-}
-
-variable "nginx-instance-name" {
-  description = "name for the custom instance"
-  default     = "nginx"
-}
+#---------------------------------------------------
