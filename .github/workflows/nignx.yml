@@ -1,34 +1,36 @@
-name: Ngnix deployment
+name: Nginx deployment
+
 on: 
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 permissions:
-    contents: write
+  contents: write
 
 env:
- # verbosity setting for Terraform logs
- TF_LOG: INFO
- # Credentials for deployment to AWS
- AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
- AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # verbosity setting for Terraform logs
+  TF_LOG: INFO
+  # Credentials for deployment to AWS
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }} # Ensure this secret is set in your GitHub repository
 
 jobs:
-    terraform: 
-        name: deploy yo-nignix
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout the repository to the runner
-              uses: actions/checkout@v2
-        
-            - name: Setup Terraform with specified version on the runner
-              uses: hashicorp/setup-terraform@v2
-              with:
-                terraform_version: 1.9.3
-            
-            - name: Terraform init
-              run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
-            
-            - name: Terraform Apply
-              run: terraform apply -auto-approve
+  terraform: 
+    name: Deploy Nginx
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository to the runner
+        uses: actions/checkout@v2
+      
+      - name: Setup Terraform with specified version on the runner
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.3
+      
+      - name: Terraform init
+        run: terraform init -backend-config="bucket=${{ env.BUCKET_TF_STATE }}" -backend-config="region=eu-central-1" -backend-config="key=terraform-state"
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
