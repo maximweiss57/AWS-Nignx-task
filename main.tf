@@ -10,9 +10,7 @@
 terraform {
   backend "s3" {
     bucket = var.s3-bucket-name
-    key    = "terraform-state"
-    region = var.aws-region
-    
+    key    = "terraform-state"    
   }
   required_providers {
     aws = {
