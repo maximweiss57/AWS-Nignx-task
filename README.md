@@ -28,11 +28,10 @@ This repo contains:
 How this works:
 When you run the command `terraform apply` or `terraform apply --auto-approve` (to skip the confirmation stage) in the terminal, Terraform will create the infrastructure defined in the Terraform files:
 - A VPC with 2 subnets (one private and one public) will be created.
-- 3 security groups will be created:
+- 2 security groups will be created:
   - 1 for the Bastion host that allows traffic on port 80.
   - 1 for the main instance that allows traffic only from the instance with the Bastion host's security group.
-  - 1 for allowing SSH traffic, which won't be used by default but can be attached if needed.
-- 2 EC2 instances will be created, one in each subnet:
+- 2 EC2 instances will be created, one in each subnet
   - The Bastion host will be created in the public subnet.
   - The main instance will be created in the private subnet.
 - The Bastion host will redirect the traffic to the main instance.
@@ -52,6 +51,5 @@ How this works:
 - The workflow files will run the Terraform commands to create the infrastructure.
   - The Terraform state file will be stored in the S3 bucket.
 - To destroy the infrastructure, run the destroy workflow from the Actions tab.
-
 
 ![yo-nginx](https://github.com/user-attachments/assets/68e2c4d4-c092-453e-bc47-7ac599380575)
