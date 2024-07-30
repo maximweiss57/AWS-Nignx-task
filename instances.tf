@@ -8,10 +8,8 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids      = [module.allow_http_sg.security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
-
-  user_data = <<-EOF
+  user_data                   = <<-EOF
               #!/bin/bash
-              sudo yum update -y
               sudo yum install -y nginx
               sudo systemctl start nginx
               sudo systemctl enable nginx
@@ -22,7 +20,7 @@ resource "aws_instance" "bastion" {
                   listen 80;
 
                   # Define the server name (public IP of the EC2 instance in the public subnet)
-                  server_name $(PUBLIC_IP);
+                  server_name $PUBLIC_IP;
 
                   location / {
                       # Forward (proxy) the request to the web server in the private subnet
@@ -53,25 +51,26 @@ resource "aws_instance" "nginx" {
   subnet_id              = module.vpc.private_subnets[0]
   user_data              = <<-EOF
               #!/bin/bash
-              sudo yum update -y
+              # Install Docker
               sudo yum install -y docker
               sudo systemctl start docker
               sudo systemctl enable docker
-              echo "#using the latest NGINX image from the Docker Hub
+              
+              # Create Dockerfile for NGINX
+              cat << 'EOF_NGINX' > /home/ec2-user/dockerfile
               FROM nginx:latest
-              #entrypoint to the appropriate NGINX executable and
-              #making sure the NGINX server is running in the foreground
-              ENTRYPOINT [ "/usr/sbin/nginx", "-g", "daemon off;"]
-              #edit the default index.html file to display a the needed message
+              ENTRYPOINT [ "/usr/sbin/nginx", "-g", "daemon off;" ]
               RUN echo "yo this is nginx" > /usr/share/nginx/html/index.html
-              #expose the port 80
-              EXPOSE 80" > Dockerfile
-              sudo docker build -t yo-image
+              EXPOSE 80
+              EOF_NGINX
+
+              # Build and run Docker container
+              sudo docker build -t yo-image /home/ec2-user/
               sudo docker run --name yo-nginx -d -p 80:80 yo-image
               EOF
   tags = {
-    Name      = var.custom-instance-name
+    Name      = var.nginx-instance-name
     Terraform = "true"
   }
 }
- 
+
