@@ -1,3 +1,4 @@
+#this config is for local backend
 # terraform {
 #   required_providers {
 #     aws = {
@@ -7,6 +8,7 @@
 #   }
 # }
 
+#this config is for local backend
 terraform {
   backend "s3" {
     bucket = var.s3-bucket-name
