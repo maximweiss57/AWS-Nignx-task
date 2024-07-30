@@ -9,8 +9,8 @@
 
 terraform {
   backend "s3" {
+    region = "eu-central-1"
     key    = "terraform-state"
-    region = var.aws-region
   }
   required_providers {
     aws = {
