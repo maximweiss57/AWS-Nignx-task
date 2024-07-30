@@ -2,6 +2,7 @@
 aws-region            = "eu-central-1"
 bastion-ami           = ""
 custom-ami            = ""
-nginx-instance-name  = "nginx"
+nginx-instance-name   = "nginx"
 bastion-instance-name = "bastion"
+s3-bucket-name        = "terraform-tfstate-storage-s3"
 

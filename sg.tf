@@ -1,3 +1,6 @@
+# Module: allow_http_sg
+# Description: This module creates a security group that allows inbound HTTP traffic.
+# It allows traffic from any source IP address to the specified port (80) in the VPC.
 module "allow_http_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.2"
@@ -5,7 +8,6 @@ module "allow_http_sg" {
   name        = "allow-http"
   description = "Allow HTTP inbound traffic"
   vpc_id      = module.vpc.vpc_id
-
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp"]
@@ -17,6 +19,10 @@ module "allow_http_sg" {
     Terraform = "true"
   }
 }
+
+# Module: allow_bastion_sg
+# Description: This module creates a security group that allows inbound HTTP traffic from a bastion host.
+# It allows traffic from the bastion host's security group to the specified port (80) in the VPC.
 module "allow_bastion_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.2"
@@ -43,10 +49,11 @@ module "allow_bastion_sg" {
     Terraform = "true"
   }
 }
-# Create a security group that allows SSH access from anywhere
-# this is for debugging purposes
-#not attached to any instance by default and can be attached to any instance that needs SSH access
 
+# Module: allow_ssh
+# Description: This module creates a security group that allows inbound SSH traffic.
+# It allows traffic from any source IP address to the specified port (22) in the VPC.
+# Note: This security group is not attached to any instance by default and can be attached to any instance that needs SSH access.
 module "allow_ssh" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.2"
