@@ -43,6 +43,9 @@ module "allow_bastion_sg" {
     Terraform = "true"
   }
 }
+# Create a security group that allows SSH access from anywhere
+# this is for debugging purposes
+#not attached to any instance by default and can be attached to any instance that needs SSH access
 
 module "allow_ssh" {
   source  = "terraform-aws-modules/security-group/aws"
