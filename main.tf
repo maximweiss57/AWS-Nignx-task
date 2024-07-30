@@ -9,6 +9,7 @@
 
 terraform {
   backend "s3" {
+    bucket = var.s3-bucket-name
     region = "eu-central-1"
     key    = "terraform-state"
   }
