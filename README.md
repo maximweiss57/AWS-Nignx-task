@@ -52,4 +52,4 @@ How this works:
   - The Terraform state file will be stored in the S3 bucket.
 - To destroy the infrastructure, run the destroy workflow from the Actions tab.
 
-![yo-nginx](https://github.com/user-attachments/assets/68e2c4d4-c092-453e-bc47-7ac599380575)
+![yo-nginx (1)](https://github.com/user-attachments/assets/83ef56d5-df4a-4bc8-845f-6789efbb8c92)
